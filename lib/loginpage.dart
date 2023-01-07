@@ -72,21 +72,18 @@ class _LoginpageState extends State<Loginpage> {
                           .userLogin(({
                         "username": Emailcontoler.text,
                         "password": Passwordcontroler.text,
-                      }));
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      inttoken = prefs.getString('Login');
-                      loginserror = prefs.getBool('Error');
-                      if (loginserror == false) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  Detailspage(token: inttoken.toString()),
-                            ));
-                      } else {
-                        Fluttertoast.showToast(msg: 'efw');
-                      }
+                      }),context);
+
+                      // if (loginserror == false) {
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             Detailspage(token: inttoken.toString()),
+                      //       ));
+                      // } else {
+                      //   Fluttertoast.showToast(msg: 'efw');
+                      // }
                     },
                     buttonleftmatgin: 50,
                     buttonrightmargin: 50,

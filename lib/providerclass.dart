@@ -1,13 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'deatilspage.dart';
+
 class HttpPostprovider with ChangeNotifier {
   String _Name = 'provider';
-
+  String? inttoken;
+ bool? loginserror;
 
 
   Future userRegistration(Map<String, dynamic> userdata) async {
@@ -17,7 +21,7 @@ class HttpPostprovider with ChangeNotifier {
     print(body);
   }
 
-  Future userLogin(Map<String, dynamic> logindata) async {
+  Future userLogin(Map<String, dynamic> logindata,BuildContext) async {
 
     print('sfgd');
     var url = 'https://maitexa.in/water-delivery-api/api/login';
@@ -31,6 +35,22 @@ class HttpPostprovider with ChangeNotifier {
     preferences.setBool("Error", error);
     print('erros is'+error.toString());
     print('loginid is'+loginid.toString());
+    SharedPreferences prefs =
+    await SharedPreferences.getInstance();
+    inttoken = prefs.getString('Login');
+    loginserror = prefs.getBool('Error');
+    if (loginserror == false) {
+      Navigator.push(
+          BuildContext,
+          MaterialPageRoute(
+            builder: (context) =>
+                Detailspage(token: inttoken.toString()),
+          ));
+    } else {
+      Fluttertoast.showToast(msg: 'efw');
+    }
+
+
 
     print(res);
   }
